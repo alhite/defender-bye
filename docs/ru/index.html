@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DefenderBye — отключение и восстановление Defender для Windows 10/11</title>
+  <meta name="description" content="DefenderBye — бесплатное приложение с открытым кодом для отключения Microsoft Defender на Windows 10/11 в один клик и восстановления в любой момент. Безопасно, обратимо, брандмауэр не трогается." />
+  <meta property="og:title" content="DefenderBye — отключение и восстановление Defender" />
+  <meta property="og:description" content="Отключение Windows Defender в один клик. Восстановление в любой момент. Безопасно и обратимо." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alhite.github.io/defender-bye/ru/" />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="site">
+    <div class="brand"><span class="dot"></span> DefenderBye</div>
+    <nav class="lang-switch">
+      <a href="/defender-bye/">EN</a>
+      <a href="/defender-bye/ru/" class="active">RU</a>
+    </nav>
+  </header>
+
+  <section class="hero container">
+    <h1>Отключение и восстановление Defender для Windows 10/11</h1>
+    <p class="tagline">Скажи «bye» Microsoft Defender — и верни его в любой момент. Один клик — чтобы выключить защиту в реальном времени, один клик — чтобы включить обратно. Без консольных окон и угадывания.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" data-download-latest href="https://github.com/alhite/defender-bye/releases/latest">
+        ⬇ Скачать DefenderBye.exe <span data-version></span>
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/alhite/defender-bye">Исходный код на GitHub</a>
+    </div>
+    <p class="meta-note">Windows 10 (22H2) и Windows 11, x64 · Бесплатно, открытый код (MIT) · SHA-256 публикуется с каждым релизом</p>
+  </section>
+
+  <div class="container">
+    <nav class="tabs">
+      <button class="active" data-tab="t-features">Возможности</button>
+      <button data-tab="t-how">Как это работает</button>
+      <button data-tab="t-safety">Безопасность</button>
+      <button data-tab="t-faq">FAQ</button>
+      <button data-tab="t-virustotal">VirusTotal</button>
+    </nav>
+
+    <section id="t-features" class="panel active">
+      <div class="grid">
+        <div class="card"><h3>Две большие кнопки</h3><p>«Отключить Defender» или «Восстановить Defender». Приложение само определяет текущее состояние и включает только нужную кнопку.</p></div>
+        <div class="card"><h3>Действительно работает</h3><p>Меняет те же политики, что используются в корпоративных Group Policy / Intune, включая облачную отчётность и плановое сканирование — а не только переключатель в «Безопасности Windows».</p></div>
+        <div class="card"><h3>Обратимо</h3><p>Каждое изменение сохраняется в снапшот перед применением. Восстановление точно возвращает прежние значения или откатывает к стандартным настройкам Windows.</p></div>
+        <div class="card"><h3>Честный статус</h3><p>Показывает «Защищён» / «Отключён» / «Частично отключён» и прямо говорит, если Windows Update или Tamper Protection что-то включили обратно.</p></div>
+        <div class="card"><h3>Тестовый прогон (dry run)</h3><p>Показывает, что именно изменится, без реального применения.</p></div>
+        <div class="card"><h3>Брандмауэр не трогается — никогда</h3><p>Брандмауэр Windows в жёстком списке запрета, закреплённом в коде и проверяемом тестом. DefenderBye не может его тронуть в принципе.</p></div>
+      </div>
+    </section>
+
+    <section id="t-how" class="panel">
+      <ol class="steps">
+        <li>Проверяет права администратора (предложит перезапуск с повышением, если их нет).</li>
+        <li>Проверяет Tamper Protection. Если включена — показывает, как выключить её вручную. DefenderBye никогда не пытается её обойти.</li>
+        <li><strong>Отключение:</strong> сохраняет снапшот всех значений реестра/служб перед изменением, затем применяет шаги по порядку.</li>
+        <li><strong>Восстановление:</strong> возвращает значения из снапшота или, если его нет, — к стандартным настройкам Windows.</li>
+        <li>Предлагает перезагрузку, если она нужна для применения изменений.</li>
+      </ol>
+    </section>
+
+    <section id="t-safety" class="panel">
+      <ul class="safety-list">
+        <li>Каждое изменяемое значение сохраняется заранее, поэтому восстановление точное.</li>
+        <li>Брандмауэр Windows (<code>mpssvc</code>, <code>BFE</code>, <code>SharedAccess</code> и связанные политики) никогда не трогается — это закреплено в коде и проверяется тестом, который ломает сборку при нарушении.</li>
+        <li>Нет обхода Tamper Protection, нет удаления Defender или приложения «Безопасность Windows» в этой версии.</li>
+        <li>Нет сетевых запросов, нет телеметрии, нет автообновления с загрузкой исполняемых файлов, нет записей автозагрузки.</li>
+        <li>Windows Update или Tamper Protection могут незаметно включить Defender обратно. DefenderBye определяет это при следующем запуске и честно показывает, а не делает вид, что всё ещё отключено.</li>
+      </ul>
+    </section>
+
+    <section id="t-faq" class="panel">
+      <details class="faq">
+        <summary>Антивирус помечает DefenderBye.exe. Это вирус?</summary>
+        <p>Нет — это ожидаемо для любого инструмента, способного выключать защиту самого антивируса. Сверьте опубликованный SHA-256 с файлом <code>SHA256SUMS.txt</code> в релизе или соберите приложение из исходников самостоятельно — код полностью открыт.</p>
+      </details>
+      <details class="faq">
+        <summary>Я отключил защиту, но Defender включился сам.</summary>
+        <p>Проверьте Tamper Protection (Безопасность Windows → Защита от вирусов и угроз → Управление настройками) и недавние обновления Windows — оба могут откатывать изменения политик. DefenderBye покажет «Частично отключён» или «Защищён», а не сделает вид, что всё ещё выключено.</p>
+      </details>
+      <details class="faq">
+        <summary>Это тронет мой брандмауэр?</summary>
+        <p>Нет, никогда. См. раздел «Безопасность» выше.</p>
+      </details>
+      <details class="faq">
+        <summary>Он полностью удаляет Defender?</summary>
+        <p>Нет. Эта версия только отключает/включает защиту в реальном времени и связанные настройки через поддерживаемые, обратимые механизмы. Ничего не удаляется.</p>
+      </details>
+    </section>
+
+    <section id="t-virustotal" class="panel">
+      <div class="vt-box">
+        <span class="badge">Скоро</span>
+        <p>Здесь появится отчёт VirusTotal по последнему релизу.<br />Срабатывания некоторых движков ожидаемы — см. FAQ, почему это происходит с таким типом инструментов.</p>
+        <!-- VIRUSTOTAL_EMBED: заменить этот блок ссылкой/iframe на отчёт, когда он будет готов -->
+      </div>
+    </section>
+  </div>
+
+  <footer class="site">
+    <p>DefenderBye не связан с Microsoft и не одобрен ею. Microsoft и Windows — товарные знаки Microsoft Corporation.</p>
+    <p><a href="https://github.com/alhite/defender-bye">GitHub</a> · <a href="https://github.com/alhite/defender-bye/releases">Релизы</a> · <a href="https://github.com/alhite/defender-bye/blob/main/LICENSE">Лицензия MIT</a></p>
+  </footer>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DefenderBye — Defender Remover &amp; Restore GUI for Windows 10/11</title>
+  <meta name="description" content="DefenderBye is a free, open-source GUI to remove or disable Microsoft Defender on Windows 10/11 in one click, and restore it anytime. Safe, reversible, no firewall changes." />
+  <meta property="og:title" content="DefenderBye — Defender Remover & Restore GUI" />
+  <meta property="og:description" content="Remove or disable Windows Defender in one click. Restore it anytime. Safe and reversible." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://alhite.github.io/defender-bye/" />
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="site">
+    <div class="brand"><span class="dot"></span> DefenderBye</div>
+    <nav class="lang-switch">
+      <a href="/defender-bye/" class="active">EN</a>
+      <a href="/defender-bye/ru/">RU</a>
+    </nav>
+  </header>
+
+  <section class="hero container">
+    <h1>Defender Remover &amp; Restore GUI for Windows 10/11</h1>
+    <p class="tagline">Say bye to Microsoft Defender — and bring it back anytime. One click to disable real-time protection, one click to restore it. No console windows, no guesswork.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" data-download-latest href="https://github.com/alhite/defender-bye/releases/latest">
+        ⬇ Download DefenderBye.exe <span data-version></span>
+      </a>
+      <a class="btn btn-ghost" href="https://github.com/alhite/defender-bye">View source on GitHub</a>
+    </div>
+    <p class="meta-note">Windows 10 (22H2) &amp; Windows 11, x64 · Free &amp; open source (MIT) · SHA-256 published with every release</p>
+  </section>
+
+  <div class="container">
+    <nav class="tabs">
+      <button class="active" data-tab="t-features">Features</button>
+      <button data-tab="t-how">How it works</button>
+      <button data-tab="t-safety">Safety</button>
+      <button data-tab="t-faq">FAQ</button>
+      <button data-tab="t-virustotal">VirusTotal</button>
+    </nav>
+
+    <section id="t-features" class="panel active">
+      <div class="grid">
+        <div class="card"><h3>Two big buttons</h3><p>Disable Defender, or Restore Defender. The app detects the current state and enables only the button that makes sense.</p></div>
+        <div class="card"><h3>Actually sticks</h3><p>Flips the same policy keys enterprise Group Policy / Intune use, including cloud reporting and scheduled scans — not just the toggle in Windows Security.</p></div>
+        <div class="card"><h3>Reversible</h3><p>Every change is snapshotted before it's made. Restore replays the snapshot exactly, or falls back to Windows defaults.</p></div>
+        <div class="card"><h3>Honest status</h3><p>Shows Protected / Disabled / Partially disabled, and tells you plainly if Windows Update or Tamper Protection re-enabled something.</p></div>
+        <div class="card"><h3>Dry run</h3><p>Preview exactly what would change before touching anything.</p></div>
+        <div class="card"><h3>Firewall untouched — always</h3><p>The Windows Firewall is on a hard refuse-list enforced by code and a unit test. DefenderBye cannot touch it, ever.</p></div>
+      </div>
+    </section>
+
+    <section id="t-how" class="panel">
+      <ol class="steps">
+        <li>Checks you're running as Administrator (asks to relaunch elevated if not).</li>
+        <li>Detects Tamper Protection. If it's on, shows you how to turn it off yourself — DefenderBye never tries to bypass it.</li>
+        <li><strong>Disable:</strong> snapshots every registry value / service start type it's about to change, then applies each step in order.</li>
+        <li><strong>Restore:</strong> replays that snapshot in reverse, or restores Windows defaults if there is no snapshot.</li>
+        <li>Prompts you to reboot when a change needs it to fully take effect.</li>
+      </ol>
+    </section>
+
+    <section id="t-safety" class="panel">
+      <ul class="safety-list">
+        <li>Every value DefenderBye changes is captured first, so Restore is exact.</li>
+        <li>The Windows Firewall (<code>mpssvc</code>, <code>BFE</code>, <code>SharedAccess</code> and related policy keys) is never touched — enforced in code with a test that fails the build if that is ever violated.</li>
+        <li>No Tamper Protection bypass, no uninstall/deep-remove of Defender or the Security app in this release.</li>
+        <li>No network calls, no telemetry, no auto-update that downloads executables, no persistence or startup entries.</li>
+        <li>Windows Update or Tamper Protection can re-enable Defender behind your back. DefenderBye detects this on next launch and shows it honestly instead of pretending everything is still off.</li>
+      </ul>
+    </section>
+
+    <section id="t-faq" class="panel">
+      <details class="faq">
+        <summary>My antivirus flags DefenderBye.exe. Is it malware?</summary>
+        <p>No — this is expected for any tool that can switch off an antivirus's own protections. Verify the published SHA-256 against <code>SHA256SUMS.txt</code> on the release, or build it yourself from source; the code is fully open.</p>
+      </details>
+      <details class="faq">
+        <summary>I disabled it, but Defender turned itself back on.</summary>
+        <p>Check Tamper Protection (Windows Security → Virus &amp; threat protection → Manage settings) and recent Windows Updates — both can revert policy changes. DefenderBye will show "Partially disabled" or "Protected" instead of pretending it's still off.</p>
+      </details>
+      <details class="faq">
+        <summary>Will this touch my firewall?</summary>
+        <p>No, never. See Safety above.</p>
+      </details>
+      <details class="faq">
+        <summary>Does it remove Microsoft Defender entirely?</summary>
+        <p>No. This build only disables/re-enables real-time protection and related settings through supported, reversible mechanisms. It does not uninstall anything.</p>
+      </details>
+    </section>
+
+    <section id="t-virustotal" class="panel">
+      <div class="vt-box">
+        <span class="badge">Coming soon</span>
+        <p>A VirusTotal scan report for the latest release will be embedded here.<br />Expect flags from some engines — see the FAQ for why that happens with this kind of tool.</p>
+        <!-- VIRUSTOTAL_EMBED: replace this block with the report link/iframe once available -->
+      </div>
+    </section>
+  </div>
+
+  <footer class="site">
+    <p>DefenderBye is not affiliated with or endorsed by Microsoft. Microsoft and Windows are trademarks of Microsoft Corporation.</p>
+    <p><a href="https://github.com/alhite/defender-bye">GitHub</a> · <a href="https://github.com/alhite/defender-bye/releases">Releases</a> · <a href="https://github.com/alhite/defender-bye/blob/main/LICENSE">MIT License</a></p>
+  </footer>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>
